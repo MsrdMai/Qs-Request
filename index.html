@@ -663,9 +663,9 @@
   <script>
     const msalConfig = {
       auth: {
-        clientId: '21e59b79-0347-4451-a4bc-7d2c1982bcad',
-        authority: `https://login.microsoftonline.com/875bdd0a-688b-41d2-96b7-454d280043aa`,
-        redirectUri: 'http://localhost:3000',
+        clientId: 'e37ff47d-0eeb-42ce-9b0f-d2aa03d25b94',
+        authority: `https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a`,
+        redirectUri: 'https://msrdmai.github.io/Qs-Request/',
         navigateToLoginRequestUrl: false,
       },
       cache: {
@@ -673,7 +673,7 @@
       },
     };
 
-    const msalInstance = new msal.PublicClientApplication(msalConfig);
+    const msalInstance = new msal.UserAgentApplication(msalConfig);
 
     const Endpoints = {
       MicrosoftProfile: 'https://graph.microsoft.com/v1.0/me',
@@ -752,7 +752,7 @@
           let empCode = profile.ResponseData.EmpCode;
           let comCode = profile.ResponseData.ComCode;
           let refCode = profile.ResponseData.RefCode;
-          // window.location.replace(`http://intraneteworking.sansiri.com/qsrequest/default.aspx?empcode=${empCode}&compcode=${comCode}&refcode=${refCode}`);
+          window.location.replace(`http://intraneteworking.sansiri.com/qsrequest/default.aspx?empcode=${empCode}&compcode=${comCode}&refcode=${refCode}`);
         })
         .catch((error) => {
           console.error(error);
