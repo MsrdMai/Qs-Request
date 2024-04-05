@@ -673,7 +673,7 @@
       },
     };
 
-    const msalInstance = new msal.UserAgentApplication(msalConfig);
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
 
     const Endpoints = {
       MicrosoftProfile: 'https://graph.microsoft.com/v1.0/me',
