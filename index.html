@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="shortcut icon"
+      href="/assets/icon.ico" />
+
+    <!-- msal.js with a fallback to backup CDN -->
+    <script
+      src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.js"
+      integrity="sha384-o4ufwq3oKqc7IoCcR08YtZXmgOljhTggRwxP2CLbSqeXGtitAxwYaUln/05nJjit"
+      crossorigin="anonymous"></script>
+    <script
+      type="text/javascript"
+      src="https://alcdn.msauth.net/browser/2.5.2/js/msal-browser.min.js"></script>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+
+    <title>QS REQUEST LOGIN</title>
+    <style>
+      .kanit-thin {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 100;
+        font-style: normal;
+      }
+
+      .kanit-extralight {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 200;
+        font-style: normal;
+      }
+
+      .kanit-light {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      .kanit-regular {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .kanit-medium {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      .kanit-semibold {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      .kanit-bold {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      .kanit-extrabold {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 800;
+        font-style: normal;
+      }
+
+      .kanit-black {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      .kanit-thin-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 100;
+        font-style: italic;
+      }
+
+      .kanit-extralight-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 200;
+        font-style: italic;
+      }
+
+      .kanit-light-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 300;
+        font-style: italic;
+      }
+
+      .kanit-regular-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      .kanit-medium-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 500;
+        font-style: italic;
+      }
+
+      .kanit-semibold-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 600;
+        font-style: italic;
+      }
+
+      .kanit-bold-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 700;
+        font-style: italic;
+      }
+
+      .kanit-extrabold-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 800;
+        font-style: italic;
+      }
+
+      .kanit-black-italic {
+        font-family: 'Kanit', sans-serif;
+        font-weight: 900;
+        font-style: italic;
+      }
+
+      .wapper {
+        background: none repeat scroll 0 0 black;
+        position: fixed;
+        opacity: 0.5;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        display: none;
+      }
+
+      .loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 120px;
+        height: 120px;
+        margin: -76px 0 0 -76px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        display: none;
+        z-index: 1;
+      }
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      body {
+        width: 100vh;
+        /* background-image: url('./assets/Frame47.png'); */
+        background-image: url('./assets/Frame57.png');
+        background-color: #162e46;
+        .container {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          width: 50%;
+          height: 100%;
+          background-color: #162e46;
+        }
+
+        #logo {
+          margin-top: 15%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: auto;
+          height: auto;
+        }
+        /* 
+        #key {
+          margin-top: 5%;
+          margin-left: 10%;
+          height: auto;
+        } */
+
+        #key {
+          margin-top: 5%;
+          margin-left: 10%;
+          height: 60px;
+        }
+
+        #card-login {
+          margin-top: 5%;
+          background-color: #ffff;
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          padding: 0px;
+          position: absolute;
+          width: 480px;
+          height: 414px;
+          left: auto;
+          right: auto;
+        }
+      }
+      h1 {
+        color: #1b5faa;
+        font-family: verdana;
+        margin-top: 7%;
+        margin-left: 10%;
+        margin-right: 10%;
+        font-size: 42px;
+      }
+      p {
+        color: black;
+        font-family: 'Kanit', sans-serif;
+        margin-left: 10%;
+        margin-top: 0%;
+        font-size: 27px;
+        font-weight: bold;
+      }
+
+      .btn {
+        width: 80%;
+        background-color: #1b5faa; /* Green */
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 12px;
+        margin: 10%;
+        margin-top: 10%;
+        cursor: pointer;
+      }
+
+      @media screen and (width: 280px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 120%;
+            height: 75%;
+            background-color: #162e46;
+          }
+
+          #card-login {
+            margin: 10%;
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 270px;
+            height: 370px;
+            right: 0%;
+            left: 0%;
+          }
+        }
+      }
+
+      @media screen and (width: 360px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 60%;
+            background-color: #162e46;
+          }
+
+          #card-login {
+            margin: 6%;
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 320px;
+            height: 330px;
+            right: 0%;
+            left: 0%;
+          }
+          h1 {
+            font-size: 32px;
+          }
+        }
+      }
+
+      @media screen and (width: 375px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 60%;
+            background-color: #162e46;
+          }
+
+          #card-login {
+            margin: 7%;
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 320px;
+            height: 350px;
+            right: 0%;
+            left: 0%;
+          }
+          h1 {
+            font-size: 32px;
+          }
+        }
+      }
+
+      @media screen and (width: 390px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 60%;
+            background-color: #162e46;
+          }
+
+          #card-login {
+            margin: 5%;
+            margin-top: 15%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 350px;
+            height: 350px;
+            right: 0%;
+            left: 0%;
+          }
+          h1 {
+            font-size: 32px;
+          }
+        }
+      }
+
+      @media screen and (width: 412px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 55%;
+            background-color: #162e46;
+          }
+
+          #card-login {
+            margin: 5%;
+            margin-top: 15%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 370px;
+            height: 350px;
+            right: 0%;
+            left: 0%;
+          }
+
+          h1 {
+            font-size: 32px;
+          }
+        }
+      }
+
+      @media screen and (width: 414px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 55%;
+            background-color: #162e46;
+          }
+
+          #card-login {
+            margin: 6%;
+            margin-top: 15%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 367px;
+            height: 350px;
+            right: 0%;
+            left: 0%;
+          }
+          h1 {
+            font-size: 32px;
+          }
+        }
+      }
+      @media screen and (width: 430px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 55%;
+            background-color: #162e46;
+          }
+
+          #card-login {
+            margin: 5%;
+            margin-top: 15%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 390px;
+            height: 350px;
+            right: 0%;
+            left: 0%;
+          }
+          h1 {
+            font-size: 32px;
+          }
+        }
+      }
+
+      /* Ipad Mini */
+      @media screen and (width: 768px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 65%;
+            background-color: #162e46;
+          }
+          #card-login {
+            margin: 14%;
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 560px;
+            height: 500px;
+            right: 0%;
+            left: 0%;
+          }
+        }
+      }
+
+      /* Ipad Air */
+      @media screen and (width: 820px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 60%;
+            background-color: #162e46;
+          }
+          #card-login {
+            margin: 14%;
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 600px;
+            height: 500px;
+            right: 0%;
+            left: 0%;
+          }
+        }
+      }
+
+      /* Ipad Pro */
+      @media screen and (width: 1024px) {
+        body {
+          .container {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            width: 100%;
+            height: 75%;
+            background-color: #162e46;
+          }
+          #card-login {
+            margin: 20%;
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 600px;
+            height: 500px;
+            right: 0%;
+            left: 0%;
+          }
+        }
+      }
+
+      @media screen and (width: 1180px) {
+        body {
+          #card-login {
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 0px;
+            position: absolute;
+            width: 480px;
+            height: 414px;
+            right: 50px;
+          }
+        }
+      }
+
+      @media screen and (min-width: 1350px) {
+        body {
+          #card-login {
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 0px;
+            position: absolute;
+            width: 480px;
+            height: 414px;
+            right: 90px;
+          }
+        }
+      }
+
+      @media screen and (min-width: 1366px) {
+        body {
+          #card-login {
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 0px;
+            position: absolute;
+            width: 480px;
+            height: 414px;
+            right: 90px;
+          }
+        }
+      }
+
+      @media screen and (min-width: 1649px) {
+        body {
+          #card-login {
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 0px;
+            position: absolute;
+            width: 480px;
+            height: 414px;
+            right: 150px;
+          }
+        }
+      }
+
+      @media screen and (min-width: 1669px) {
+        body {
+          #card-login {
+            margin-top: 10%;
+            background-color: #ffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 0px;
+            position: absolute;
+            width: 480px;
+            height: 414px;
+            right: 220px;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wapper"></div>
+    <div class="loader"></div>
+    <div class="container">
+      <img
+        src="assets/SSRLogo.png"
+        alt="logo"
+        id="logo" />
+      <div id="card-login">
+        <!-- <img
+            src="assets/ic_access.png"
+            alt="key"
+            id="key" /> -->
+        <img
+          src="assets/icon.ico"
+          alt="key"
+          id="key" />
+
+        <h1>QS REQUEST</h1>
+        <p>ฝ่ายประมาณราคา</p>
+        <button
+          class="btn"
+          type="submit"
+          id="signIn"
+          onclick="signIn()">
+          LOGIN
+        </button>
+      </div>
+    </div>
+  </body>
+  <script>
+    const msalConfig = {
+      auth: {
+        clientId: '21e59b79-0347-4451-a4bc-7d2c1982bcad',
+        authority: `https://login.microsoftonline.com/875bdd0a-688b-41d2-96b7-454d280043aa`,
+        redirectUri: 'http://localhost:3000',
+        navigateToLoginRequestUrl: false,
+      },
+      cache: {
+        cacheLocation: 'localStorage',
+      },
+    };
+
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    const Endpoints = {
+      MicrosoftProfile: 'https://graph.microsoft.com/v1.0/me',
+      GetUserProfile: 'https://siriwebapi.sansiri.com/Con_API/api/GetUserProfile',
+    };
+
+    const verifyMSAL = async (msalToken) => {
+      const headers = new Headers();
+      const bearer = `Bearer ${msalToken}`;
+      headers.append('Authorization', bearer);
+      var options = {
+        method: 'GET',
+        headers: headers,
+      };
+      const rawResponse = await fetch(Endpoints.MicrosoftProfile, options)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          // Parse the JSON response
+          return response.json();
+        })
+        .then((data) => {
+          // Handle the data returned from the server
+          return data;
+        })
+
+        .catch((e) => {
+          alert(e);
+        });
+
+      return await rawResponse;
+    };
+
+    const getSansiriProfile = async (token, email) => {
+      try {
+        const headers = new Headers();
+        const bearer = `Bearer ${token}`;
+        headers.append('Authorization', bearer);
+        headers.append('Content-Type', 'application/json;  charset=utf8');
+        var options = {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({
+            UserEmail: email,
+            SystemName: 'QSRequest',
+          }),
+        };
+
+        const response = await fetch(Endpoints.GetUserProfile, options);
+        return response.json();
+      } catch (e) {
+        if (e) {
+          alert(e);
+        }
+      }
+    };
+
+    const signIn = async () => {
+      const request = {
+        scopes: ['user.read'],
+      };
+
+      msalInstance
+        .loginPopup(request)
+        .then(async (loginResponse) => {
+          document.getElementById('signIn').style.cursor = 'not-allowed';
+          const loader = document.getElementsByClassName('loader')[0];
+          const wapper = document.getElementsByClassName('wapper')[0];
+
+          document.getElementById('signIn').disabled = true;
+          wapper.style.display = 'block';
+          loader.style.display = 'inline';
+          const msalProfile = await verifyMSAL(loginResponse.accessToken);
+          const profile = await getSansiriProfile(loginResponse.accessToken, msalProfile.mail);
+          let empCode = profile.ResponseData.EmpCode;
+          let comCode = profile.ResponseData.ComCode;
+          let refCode = profile.ResponseData.RefCode;
+          // window.location.replace(`http://intraneteworking.sansiri.com/qsrequest/default.aspx?empcode=${empCode}&compcode=${comCode}&refcode=${refCode}`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+  </script>
+</html>
